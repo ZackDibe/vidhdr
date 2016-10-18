@@ -11,7 +11,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 setup(
     name='vidhdr',
 
-    version='1.0',
+    version='1.0.1',
 
     description='Determine the type of a video',
     long_description=long_description,
