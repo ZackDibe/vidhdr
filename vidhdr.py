@@ -1,4 +1,4 @@
-"""Recognize video file miem type based on ftyp header. """
+"""Recognize video file mime type based on ftyp header. """
 
 __all__ = ["what"]
 
@@ -255,15 +255,15 @@ def what(fpath, buf=None):
     fd = None
     try:
         if buf is None:
-            if isinstance(file, basestring):
-                fd = open(file, 'rb')
-                header = fd.read(32)
+            if isinstance(fpath, basestring):
+                fd = open(fpath, 'rb')
+                buf = fd.read(32)
             else:
-                location = file.tell()
-                header = file.read(32)
-                file.seek(location)
+                location = fpath.tell()
+                buf = fpath.read(32)
+                fpath.seek(location)
         for tf in tests:
-            res = tf(header, fd)
+            res = tf(buf, fd)
             if res:
                 return res
     finally:
@@ -273,7 +273,7 @@ def what(fpath, buf=None):
     return None
 
 
-def test_ftyp(buf):
+def test_ftyp(buf, fd):
     ftyp = buf[8:12].strip()
     video_type = VIDEO_TYPES.get(ftyp, {})
     return video_type.get('mime-type')
