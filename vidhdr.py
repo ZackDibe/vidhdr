@@ -275,7 +275,7 @@ def what(fpath, buf=None):
 
 def test_ftyp(buf, fd):
     ftyp = buf[8:12].strip()
-    video_type = VIDEO_TYPES.get(ftyp, {})
+    video_type = VIDEO_TYPES.get(str(ftyp), {})
     return video_type.get('mime-type')
 
 tests.append(test_ftyp)
